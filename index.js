@@ -45,7 +45,7 @@ rpc.on('ready', () => {
           smallImageText: "$RANK"
         })
       })
-    }, 10000)
+    }, 1000)
     console.log('RPC Connected!')
 })
 
