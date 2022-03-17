@@ -6,7 +6,7 @@ const rpc = new RPC.Client({
 })
 const user = require('./user.json')
 const game = 'RotMG Exalt.exe'
-const url = `https://nightfirec.at/realmeye-api/?player=${user.name}&filter=player+characters+class+fame+`
+const url = `https://nightfirec.at/realmeye-api/?player=${user.name}&filter=player+characters+class+fame+rank`
 const isRunning = (query, cb) => {
   let platform = process.platform;
   let cmd = '';
@@ -23,6 +23,11 @@ const isRunning = (query, cb) => {
 
 var timeStamp = Date.now() / 1000 | 0;
 
+/*
+  $: VALOR OBTENIDO DESDE LA API
+  $$: ICONO A ELEGIR DESDE EL DEVELOPER PORTAL
+*/
+
 rpc.on('ready', () => {
     setInterval(function() {
       request(url, function(error, res, body) {
@@ -30,7 +35,15 @@ rpc.on('ready', () => {
             return console.error(error);
         }
         converted = JSON.parse(res.body)
-        // sacar datos del link
+        rpc.setActivity({
+          details: "IGN: $PLAYER",
+          state: "Playing as: $CLASS",
+          startTimestamp: timeStamp,
+          largeImageKey: "$$CLASS_IMG",
+          largeImageText: "$FAME",
+          smallImageKey: "$$STAR_IMG",
+          smallImageText: "$RANK"
+        })
       })
     }, 10000)
     console.log('RPC Connected!')
@@ -39,15 +52,3 @@ rpc.on('ready', () => {
 rpc.login({
   clientId: "954113378438246461"
 })
-
-/* 
-      rpc.setActivity({
-        details: "default",
-        state: "default",
-        startTimestamp: "default",
-        largeImageKey: "default",
-        largeImageText: "default",
-        smallImageKey: "default",
-        smallImageText: "default"
-      })
-*/
