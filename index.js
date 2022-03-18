@@ -11,9 +11,9 @@ const isRunning = (query, cb) => {
   let platform = process.platform;
   let cmd = '';
   switch (platform) {
-    case 'win32' : cmd = `tasklist`; break;
-    case 'darwin' : cmd = `ps -ax | grep ${query}`; break;
-    case 'linux' : cmd = `ps -A`; break;
+    case 'win32': cmd = `tasklist`; break;
+    case 'darwin': cmd = `ps -ax | grep ${query}`; break;
+    case 'linux': cmd = `ps -A`; break;
     default: break;
   }
   exec(cmd, (err, stdout, stderr) => {
@@ -44,59 +44,77 @@ const classes = {
   'Kensei': 'kensei-icon'
 }
 
-rpc.on('ready', () => {
-    setInterval(function() {
-      request(url, function(error, res, body) {
-        if (error) {
-          return console.error(error);
-        }
-        converted = JSON.parse(res.body)
+console.log('RotMG-RPC')
+console.log('Created by: ether#8677 (IGN: Neruncio) & neokeee#9998 (IGN: Neopkr)')
+console.log('This app load data from API, not from game data.')
 
-        // Del array de personajes, sacar el primero
-        char = converted[`characters`]
-        playingAs = char[0]
-        function _getClass() {
-          return classes[playingAs[`class`]];
-        }
-        //console.log(_getClass())
+isRunning(game, (run) => {
+  if (run === true) {
+    rpc.on('ready', () => {
+      setInterval(function () {
+        request(url, function (error, res, body) {
+          if (error) {
+            return console.error(error);
+          }
+          converted = JSON.parse(res.body)
 
-        IGN = converted[`player`]
-        basefame = playingAs[`fame`]
-        starQuantity = converted[`rank`]
+          // Del array de personajes, sacar el primero
+          char = converted[`characters`]
+          playingAs = char[0]
+          function _getClass() {
+            return classes[playingAs[`class`]];
+          }
+          //console.log(_getClass())
 
-        function rank() {
-          if (starQuantity >= 0 && starQuantity <= 17) {
-            return "lightbluestar-icon"
-          }
-          else if (starQuantity >= 18 && starQuantity <= 35){
-            return "bluestar-icon"
-          }
-          else if (starQuantity >= 36 && starQuantity <= 53){
-            return "redstar-icon"
-          }
-          else if (starQuantity >= 54 && starQuantity <= 71){
-            return "orangestar-icon"
-          }
-          else if (starQuantity >= 72 && starQuantity <= 89){
-            return "yellowstar-icon"
-          }
-          else {
-            return "whitestar-icon"
-          }
-        }
+          IGN = converted[`player`]
+          basefame = playingAs[`fame`]
+          starQuantity = converted[`rank`]
 
-        rpc.setActivity({
-          details: `IGN: ${IGN}`,
-          state: `Playing as: ${playingAs[`class`]}`,
-          startTimestamp: timeStamp,
-          largeImageKey: _getClass(),
-          largeImageText: `${basefame} BF`,
-          smallImageKey: rank(),
-          smallImageText: starQuantity.toString()
+          function rank() {
+            if (starQuantity >= 0 && starQuantity <= 17) {
+              return "lightbluestar-icon"
+            }
+            else if (starQuantity >= 18 && starQuantity <= 35) {
+              return "bluestar-icon"
+            }
+            else if (starQuantity >= 36 && starQuantity <= 53) {
+              return "redstar-icon"
+            }
+            else if (starQuantity >= 54 && starQuantity <= 71) {
+              return "orangestar-icon"
+            }
+            else if (starQuantity >= 72 && starQuantity <= 89) {
+              return "yellowstar-icon"
+            }
+            else {
+              return "whitestar-icon"
+            }
+          }
+
+          rpc.setActivity({
+            details: `IGN: ${IGN}`,
+            state: `Playing as: ${playingAs[`class`]}`,
+            startTimestamp: timeStamp,
+            largeImageKey: _getClass(),
+            largeImageText: `${basefame} BF`,
+            smallImageKey: rank(),
+            smallImageText: starQuantity.toString()
+          })
+          isRunning('AlienShooter.exe', (quit) => {
+            if (quit === false)
+            {
+                console.log("Game Exiting... Exiting RPC.");
+                rpc.destroy();
+                process.exit();
+            }
         })
-      })
-    }, 5000)
-    console.log('RPC Connected!')
+        })
+      }, 5000)
+      console.log('Realm of the Mad God Exalt RPC Connected!')
+    })
+  } else {
+    console.log('The game is not open, open the game and restart the rpc.')
+  }
 })
 
 rpc.login({
