@@ -51,7 +51,7 @@ while True:
   try:
     playingAs = charactersList[0];
   except IndexError:
-    print("This IGN don't have characters alive.")
+    print("This player doesn't have any characters alive.")
     quit()
   
   def _getClass():
