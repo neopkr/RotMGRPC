@@ -47,6 +47,7 @@ const classes = {
 console.log('RotMG-RPC')
 console.log('Created by: ether#8677 (IGN: Neruncio) & neokeee#9998 (IGN: Neopkr)')
 console.log('This app load data from API, not from game data.')
+console.log('** IMPORTANT!: Change "name" from user.json for load your data **')
 
 isRunning(game, (run) => {
   if (run === true) {
