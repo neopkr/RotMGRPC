@@ -7,7 +7,7 @@ const rpc = new RPC.Client({
 const user = require('./user.json')
 function game() {
   if (process.platform == "win32") { return "RotMG Exalt.exe" }
-  else { return "RoTMGExalt" }
+  else { return "RotMGExalt" }
 }
 const url = `https://nightfirec.at/realmeye-api/?player=${user.name}&filter=player+characters+class+fame+rank`
 const isRunning = (query, cb) => {
@@ -103,7 +103,7 @@ rpc.on('ready', () => {
             smallImageKey: rank(),
             smallImageText: starQuantity.toString()
           })
-          isRunning('AlienShooter.exe', (quit) => {
+          isRunning(game(), (quit) => {
             if (quit === false) {
               console.log("Game Exiting... Exiting RPC.");
               rpc.destroy();
