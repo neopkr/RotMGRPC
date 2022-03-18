@@ -1,5 +1,3 @@
-from asyncio.windows_events import ERROR_CONNECTION_ABORTED
-from json import JSONDecodeError
 import time, os
 from pypresence import Presence
 import requests as r
