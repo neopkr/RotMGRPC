@@ -1,1 +1,2 @@
+clear
 node index.js
