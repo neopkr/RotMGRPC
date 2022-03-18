@@ -34,6 +34,26 @@ var timeStamp = Date.now() / 1000 | 0;
   $$: ICONO A ELEGIR DESDE EL DEVELOPER PORTAL
 */
 
+const classes = {
+  'Rogue': 'rogue-icon',
+  'Archer': 'archer-icon',
+  'Wizard': 'wizard-icon',
+  'Priest': 'priest-icon',
+  'Warrior': 'warrior-icon',
+  'Knight': 'knight-icon',
+  'Paladin': 'paladin-icon',
+  'Assassin': 'assassin-icon',
+  'Necromancer': 'necromancer-icon',
+  'Huntress': 'huntress-icon',
+  'Mystic': 'mystic-icon',
+  'Trickster': 'trickster-icon',
+  'Sorcerer': 'sorcerer-icon',
+  'Ninja': 'ninja-icon',
+  'Samurai': 'samurai-icon',
+  'Bard': 'bard-icon',
+  'Summoner': 'summoner-icon',
+  'Kensei': 'kensei-icon'
+}
 rpc.on('ready', () => {
     setInterval(function() {
       request(url, function(error, res, body) {
@@ -41,11 +61,15 @@ rpc.on('ready', () => {
             return console.error(error);
         }
         converted = JSON.parse(res.body)
+        char = converted['character']
+        function _getClass() {
+          return classes[char];
+        }
         rpc.setActivity({
           details: "IGN: $PLAYER",
-          state: "Playing as: $CLASS",
+          state: "Playing as: char",
           startTimestamp: timeStamp,
-          largeImageKey: "$$CLASS_IMG",
+          largeImageKey: "$$_getClass",
           largeImageText: "$FAME",
           smallImageKey: "$$STAR_IMG",
           smallImageText: "$RANK"
