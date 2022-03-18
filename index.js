@@ -46,10 +46,10 @@ const classes = {
   'Kensei': 'kensei-icon'
 }
 
-console.log('RotMG-RPC')
+console.log('^*------------RotMG-RPC------------*^')
 console.log('Created by: ether#8677 (IGN: Neruncio) & neokeee#9998 (IGN: Neopkr)')
-console.log('This app load data from API, not from game data.')
-console.log('** IMPORTANT!: Change "name" from user.json for load your data **')
+console.log('This app loads data from RealmEye API, not from the game data.')
+console.log('** IMPORTANT!: Change "name" from user.json to load your data **')
 console.log(`** Loading IGN from user.json: ${user.name}`)
 rpc.on('ready', () => {
   isRunning(game(), (run) => {
