@@ -1,0 +1,1 @@
+pkg index.js node12-win-x64 --output rotmg-rpc
