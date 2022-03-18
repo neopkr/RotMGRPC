@@ -1,3 +1,5 @@
+from asyncio.windows_events import ERROR_CONNECTION_ABORTED
+from json import JSONDecodeError
 import time, os
 from pypresence import Presence
 import requests as r
@@ -48,8 +50,12 @@ while True:
   data = res.json()
 
   charactersList = data['characters']
-  playingAs = charactersList[0];
-
+  try:
+    playingAs = charactersList[0];
+  except IndexError:
+    print("This IGN don't have characters alive.")
+    quit()
+  
   def _getClass():
     return classes[playingAs['class']]
     
