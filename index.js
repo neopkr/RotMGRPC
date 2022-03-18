@@ -5,7 +5,10 @@ const rpc = new RPC.Client({
   transport: 'ipc'
 })
 const user = require('./user.json')
-const game = 'RotMG Exalt.exe'
+function game() {
+  if (process.platform == "win32") { return "RotMG Exalt.exe" }
+  else { return "RoTMGExalt" }
+}
 const url = `https://nightfirec.at/realmeye-api/?player=${user.name}&filter=player+characters+class+fame+rank`
 const isRunning = (query, cb) => {
   let platform = process.platform;
@@ -20,7 +23,6 @@ const isRunning = (query, cb) => {
     cb(stdout.toLowerCase().indexOf(query.toLowerCase()) > -1);
   });
 }
-
 var timeStamp = Date.now() / 1000 | 0;
 
 const classes = {
@@ -48,10 +50,10 @@ console.log('RotMG-RPC')
 console.log('Created by: ether#8677 (IGN: Neruncio) & neokeee#9998 (IGN: Neopkr)')
 console.log('This app load data from API, not from game data.')
 console.log('** IMPORTANT!: Change "name" from user.json for load your data **')
-
-isRunning(game, (run) => {
-  if (run === true) {
-    rpc.on('ready', () => {
+console.log(`** Loading IGN from user.json: ${user.name}`)
+rpc.on('ready', () => {
+  isRunning(game(), (run) => {
+    if (run === true) {
       setInterval(function () {
         request(url, function (error, res, body) {
           if (error) {
@@ -102,20 +104,19 @@ isRunning(game, (run) => {
             smallImageText: starQuantity.toString()
           })
           isRunning('AlienShooter.exe', (quit) => {
-            if (quit === false)
-            {
-                console.log("Game Exiting... Exiting RPC.");
-                rpc.destroy();
-                process.exit();
+            if (quit === false) {
+              console.log("Game Exiting... Exiting RPC.");
+              rpc.destroy();
+              process.exit();
             }
-        })
+          })
         })
       }, 5000)
       console.log('Realm of the Mad God Exalt RPC Connected!')
-    })
-  } else {
-    console.log('The game is not open, open the game and restart the rpc.')
-  }
+    } else {
+      console.log('The game is not open, open the game and restart the rpc.')
+    }
+  })
 })
 
 rpc.login({
