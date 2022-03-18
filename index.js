@@ -22,6 +22,12 @@ const isRunning = (query, cb) => {
 }
 
 var timeStamp = Date.now() / 1000 | 0;
+// var playername = 
+// var fame =
+// var class =
+// var class_img =
+// var rank =
+// var star_img =
 
 /*
   $: VALOR OBTENIDO DESDE LA API
