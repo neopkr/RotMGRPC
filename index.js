@@ -22,17 +22,6 @@ const isRunning = (query, cb) => {
 }
 
 var timeStamp = Date.now() / 1000 | 0;
-// var playername = 
-// var fame =
-// var class =
-// var class_img =
-// var rank =
-// var star_img =
-
-/*
-  $: VALOR OBTENIDO DESDE LA API
-  $$: ICONO A ELEGIR DESDE EL DEVELOPER PORTAL
-*/
 
 const classes = {
   'Rogue': 'rogue-icon',
@@ -54,28 +43,59 @@ const classes = {
   'Summoner': 'summoner-icon',
   'Kensei': 'kensei-icon'
 }
+
 rpc.on('ready', () => {
     setInterval(function() {
       request(url, function(error, res, body) {
         if (error) {
-            return console.error(error);
+          return console.error(error);
         }
         converted = JSON.parse(res.body)
-        char = converted['character']
+
+        // Del array de personajes, sacar el primero
+        char = converted[`characters`]
+        playingAs = char[0]
         function _getClass() {
-          return classes[char];
+          return classes[playingAs[`class`]];
         }
+        //console.log(_getClass())
+
+        IGN = converted[`player`]
+        basefame = playingAs[`fame`]
+        starQuantity = converted[`rank`]
+
+        function rank() {
+          if (starQuantity >= 0 && starQuantity <= 17) {
+            return "lightbluestar-icon"
+          }
+          else if (starQuantity >= 18 && starQuantity <= 35){
+            return "bluestar-icon"
+          }
+          else if (starQuantity >= 36 && starQuantity <= 53){
+            return "redstar-icon"
+          }
+          else if (starQuantity >= 54 && starQuantity <= 71){
+            return "orangestar-icon"
+          }
+          else if (starQuantity >= 72 && starQuantity <= 89){
+            return "yellowstar-icon"
+          }
+          else {
+            return "whitestar-icon"
+          }
+        }
+
         rpc.setActivity({
-          details: "IGN: $PLAYER",
-          state: "Playing as: char",
+          details: `IGN: ${IGN}`,
+          state: `Playing as: ${playingAs[`class`]}`,
           startTimestamp: timeStamp,
-          largeImageKey: "$$_getClass",
-          largeImageText: "$FAME",
-          smallImageKey: "$$STAR_IMG",
-          smallImageText: "$RANK"
+          largeImageKey: _getClass(),
+          largeImageText: `${basefame} BF`,
+          smallImageKey: rank(),
+          smallImageText: starQuantity.toString()
         })
       })
-    }, 1000)
+    }, 5000)
     console.log('RPC Connected!')
 })
 
