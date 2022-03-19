@@ -38,11 +38,11 @@ def _getGame():
   return pid
 
 def game_():
-  if platform.system() == "Windows": return "RotMG Exalt"
+  if platform.system() == "Windows": return "RotMG Exalt.exe"
   else: return "RotMGExalt"
 game = game_() in (p.name() for p in psutil.process_iter())
 if platform.system() == "Windows":
-  os.system('clear')
+  os.system('cls')
 else:
   os.system('clear')
 print('^*------------RotMG-RPC------------*^')

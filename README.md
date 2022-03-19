@@ -5,3 +5,5 @@ This RPC retrieves information from RealmEye-API, which returns json data.
 
 # IMPORTANT:
 The information may take a while to update, since the updates are based in how fast RealmEye's page changes information.
+
+Made with <3 by Neruncio & Neopkr.
