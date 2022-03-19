@@ -1,6 +1,7 @@
 import platform
 import time, os, psutil
 from pypresence import Presence
+from sys import exit
 import requests as r
 from datetime import datetime
 
