@@ -43,11 +43,13 @@ print(f'** Loading IGN: {player}')
 
 url = f"https://nightfirec.at/realmeye-api/?player={player}&filter=player+characters+class+fame+rank"
 error_response = "<Response [500]>"
+failed_response = "<Response [400]>"
 
 while True:
   res = r.get(url)
   if error_response in str(res):
-    print('response 500')
+    print("This player cannot be loaded")
+    quit()
   else: pass
   data = res.json()
 
