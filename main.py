@@ -1,5 +1,5 @@
 import platform
-import time, os
+import time, os, psutil
 from pypresence import Presence
 import requests as r
 from datetime import datetime
@@ -36,6 +36,10 @@ def _getGame():
   pid = os.getpid()
   return pid
 
+def game_():
+  if platform.system() == "Windows": return "RotMG Exalt"
+  else: return "RotMGExalt"
+game = game_() in (p.name() for p in psutil.process_iter())
 if platform.system() == "Windows":
   os.system('clear')
 else:
@@ -49,7 +53,12 @@ print(f'** Loading IGN: {player}')
 url = f"https://nightfirec.at/realmeye-api/?player={player}&filter=player+characters+class+fame+rank"
 error_response = "<Response [500]>"
 failed_response = "<Response [400]>"
-
+if game is True:
+  print('Realm of the Mad God Exalt RPC Connected!')
+  pass
+else:
+  print(f'{game_()} is not running, please start the game and restart the app.')
+  quit()
 while True:
   res = r.get(url)
   if error_response in str(res):
@@ -96,5 +105,12 @@ while True:
     small_image = rank(),
     small_text = str(starQty)
   )
-    
-  time.sleep(60)
+  
+  # CHECKER GAME
+  game = game_() in (p.name() for p in psutil.process_iter())
+  if game is False:
+    print('Game exiting... RPC Exiting.')
+    rpc.close()
+    quit()
+  
+  time.sleep(5)
