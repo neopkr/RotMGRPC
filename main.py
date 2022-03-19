@@ -1,3 +1,4 @@
+import platform
 import time, os
 from pypresence import Presence
 import requests as r
@@ -35,6 +36,10 @@ def _getGame():
   pid = os.getpid()
   return pid
 
+if platform.system() == "Windows":
+  os.system('clear')
+else:
+  os.system('clear')
 print('^*------------RotMG-RPC------------*^')
 print('Created by: ether#8677 (IGN: Neruncio) & neokeee#9998 (IGN: Neopkr)')
 print('This app loads data from RealmEye API, not from the game data.')
