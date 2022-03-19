@@ -1,1 +1,0 @@
-pkg index.js --target node16-macos --output rotmg-rpc

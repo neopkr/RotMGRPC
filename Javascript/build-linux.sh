@@ -1,1 +1,0 @@
-pkg index.js --targets node8-win-x64 --output rotmg-rpc
