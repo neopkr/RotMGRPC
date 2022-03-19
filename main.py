@@ -58,12 +58,12 @@ if game is True:
   pass
 else:
   print(f'{game_()} is not running, please start the game and restart the app.')
-  quit()
+  exit()
 while True:
   res = r.get(url)
   if error_response in str(res):
     print("This player cannot be loaded, error: " + error_response)
-    quit()
+    exit()
   else: pass
   data = res.json()
 
@@ -72,7 +72,7 @@ while True:
     playingAs = charactersList[0];
   except IndexError:
     print("This player doesn't have any characters alive.")
-    quit()
+    exit()
   
   def _getClass():
     return classes[playingAs['class']]
@@ -111,6 +111,6 @@ while True:
   if game is False:
     print('Game exiting... RPC Exiting.')
     rpc.close()
-    quit()
+    exit()
   
   time.sleep(5)
