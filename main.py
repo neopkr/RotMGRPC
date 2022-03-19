@@ -48,7 +48,7 @@ failed_response = "<Response [400]>"
 while True:
   res = r.get(url)
   if error_response in str(res):
-    print("This player cannot be loaded")
+    print("This player cannot be loaded, error: " + error_response)
     quit()
   else: pass
   data = res.json()
