@@ -42,9 +42,13 @@ player = input('** IGN (In-Game Name): ')
 print(f'** Loading IGN: {player}')
 
 url = f"https://nightfirec.at/realmeye-api/?player={player}&filter=player+characters+class+fame+rank"
+error_response = "<Response [500]>"
 
 while True:
   res = r.get(url)
+  if error_response in str(res):
+    print('response 500')
+  else: pass
   data = res.json()
 
   charactersList = data['characters']
