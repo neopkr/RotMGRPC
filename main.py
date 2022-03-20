@@ -69,10 +69,13 @@ while True:
     exit()
   else: pass
   data = res.json()
-  if invalid_player in data['error']:
-    print(invalid_player)
-    print('RPC Disconnected.')
-    exit()
+  try:
+    if invalid_player in data['error']:
+      print(invalid_player)
+      print('RPC Disconnected.')
+      break
+  except:
+    print('pass uwu')
   charactersList = data['characters']
   try:
     playingAs = charactersList[0];
