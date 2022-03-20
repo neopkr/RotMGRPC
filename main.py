@@ -54,6 +54,8 @@ print(f'** Loading IGN: {player}')
 url = f"https://nightfirec.at/realmeye-api/?player={player}&filter=player+characters+class+fame+rank"
 error_response = "<Response [500]>"
 failed_response = "<Response [400]>"
+invalid_player = "Invalid player name"
+
 if game is True:
   print('Realm of the Mad God Exalt RPC Connected!')
   pass
@@ -67,7 +69,10 @@ while True:
     exit()
   else: pass
   data = res.json()
-
+  if invalid_player in data['error']:
+    print(invalid_player)
+    print('RPC Disconnected.')
+    exit()
   charactersList = data['characters']
   try:
     playingAs = charactersList[0];
