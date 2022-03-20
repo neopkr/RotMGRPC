@@ -41,14 +41,20 @@ def game_():
   if platform.system() == "Windows": return "RotMG Exalt.exe"
   else: return "RotMGExalt"
 game = game_() in (p.name() for p in psutil.process_iter())
-if platform.system() == "Windows":
-  os.system('cls')
-else:
-  os.system('clear')
+
+# Verify system to clear the console
+def sysVerification():
+  if platform.system() == "Windows":
+    os.system('cls')
+  else:
+    os.system('clear')
+
+sysVerification()
+
 print('^*------------RotMG-RPC------------*^')
 print('Created by: ether#8677 (IGN: Neruncio) & neokeee#9998 (IGN: Neopkr)')
-print('This app loads data from RealmEye API, not from the game data.')
-player = input('** IGN (In-Game Name): ')
+print('This app loads data from the RealmEye API, not from the game data.')
+player = input('** Enter you IGN (In-Game Name): ')
 print(f'** Loading IGN: {player}')
 
 url = f"https://nightfirec.at/realmeye-api/?player={player}&filter=player+characters+class+fame+rank"
@@ -60,7 +66,11 @@ if game is True:
   print('Realm of the Mad God Exalt RPC Connected!')
   pass
 else:
-  print(f'{game_()} is not running, please start the game and restart the app.')
+  sysVerification()
+  print(f'{game_()} is not running! Please start the game and restart the app.')
+  time.sleep(2)
+  print('Closing...')
+  time.sleep(2)
   exit()
 while True:
   res = r.get(url)
@@ -75,7 +85,7 @@ while True:
       print('RPC Disconnected.')
       break
   except:
-    print('pass uwu')
+    pass
   charactersList = data['characters']
   try:
     playingAs = charactersList[0];
@@ -115,10 +125,12 @@ while True:
     small_text = str(starQty)
   )
   
-  # CHECKER GAME
+  # GAME CHECKER
   game = game_() in (p.name() for p in psutil.process_iter())
   if game is False:
+    sysVerification()
     print('Game exiting... RPC Exiting.')
+    time.sleep(2)
     rpc.close()
     exit()
   
