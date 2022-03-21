@@ -2,6 +2,7 @@ import platform
 import time, os, psutil
 from pypresence import Presence
 from sys import exit
+from RPCLayout import RPCLayout
 import requests as r
 from datetime import datetime
 
@@ -9,6 +10,8 @@ from datetime import datetime
 clientID = "954113378438246461"
 rpc = Presence(clientID)
 rpc.connect()
+
+layout = RPCLayout()
 
 # Class dictionary (key:value)
 classes = {
@@ -80,12 +83,16 @@ else:
   sysVerification() # Clear console
 
   # Tell user the game's not open
+  print('Waiting for game...')
+  layout._waitingForOpen(game_())
+  print('Realm of the Mad God Exalt RPC Connected!')
+  '''
   print(f'{game_()} is not running! Please start the game and restart the app.')
   time.sleep(2)
   print('Closing...')
   time.sleep(2)
   exit() # Exit program
-
+  '''
 # While cycle to update data (response delay caused by RealmEye not updating)
 while True:
   # Get URL
